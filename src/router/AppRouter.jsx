@@ -6,7 +6,7 @@ import { JournalRoutes } from '../journal/routes/JournalRoutes'
 export const AppRouter = () => {
   return (
     <Routes>
-        <Route path='/journal' element={<JournalRoutes />} /> 
+        <Route path='/journal/*' element={<JournalRoutes />} /> 
         <Route path='/*' element={<AuthRoutes />} /> 
     </Routes>
   )
