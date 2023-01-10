@@ -6,11 +6,15 @@ import { positions } from '@mui/system'
 import { AddOutlined, Note } from '@mui/icons-material'
 
 export const JournalPage = () => {
+
+  
+
   return (
     <>
-    <JournalLayout>
+    <JournalLayout className='animate__animated animate__fadeIn animate__faster'>
       <NoteView/>
       <IconButton
+        onClick={(event) => {logOutFromAppExit(event)}}
         size='large'
         sx={{
           color:'white',

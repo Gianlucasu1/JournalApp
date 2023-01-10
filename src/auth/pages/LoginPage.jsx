@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from "react-router-dom";
 import { Google } from '@mui/icons-material'
 import { Link as RoutLink, useNavigate } from 'react-router-dom'
-import { Button, Grid, Link, TextField, Typography } from '@mui/material'
+import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material'
 import React, { useMemo } from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
@@ -10,16 +10,16 @@ import { checkingAuthentication, startLoginWithEmailPassword, startGoogleSignIn 
 
 
 const formData = {
-  email:'gianluca@google.com',
-  password: '12345'
+  email:'@google.com',
+  password: ''
 }
 
-export const LoginPage = () => {
+export const LoginPage = () => { 
 
 
   const dispatch = useDispatch();
 
-  const { status } = useSelector( state => state.auth)
+  const { status, errorMessage } = useSelector( state => state.auth)
 
   const {email, password, onInputChange} = useForm( formData );
 
@@ -38,15 +38,13 @@ export const LoginPage = () => {
     dispatch( startGoogleSignIn() );
   }
 
-  if(status === "Authenticated") { 
-    return <Navigate to="/journal" replace={true} />
-  }
+  
 
  
 
   return (
     <AuthLayout title='Login'>
-      <form onSubmit={onSubmit}>
+      <form className='animate__animated animate__fadeIn animate__faster' onSubmit={onSubmit}>
 
         <Grid container>
 
@@ -73,6 +71,15 @@ export const LoginPage = () => {
               onChange={ (event) => onInputChange(event) }
             />
           </Grid>
+
+          <Grid 
+              item 
+              xs={12} 
+              display={!!errorMessage ? '' : 'none'}
+              sx={{ mt: 2 }}
+            >
+              <Alert severity='error'>{errorMessage}</Alert>
+            </Grid>
 
           <Grid
             alignItems="center"

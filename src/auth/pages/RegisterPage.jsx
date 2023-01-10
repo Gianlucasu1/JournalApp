@@ -29,7 +29,7 @@ export const RegisterPage = () => {
 
   const dispatch = useDispatch();
 
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)  
 
   const { email, password, onInputChange, displayName, formState, isFormValid, emailValid, passwordValid, displayNameValid } = useForm(formData, formValidations);
 
@@ -47,7 +47,7 @@ export const RegisterPage = () => {
 
   return (
     <AuthLayout title='Crear Cuenta'>
-      <form onSubmit={onSubmit}>
+      <form className='animate__animated animate__fadeIn animate__faster' onSubmit={onSubmit}>
 
         <Grid container>
 

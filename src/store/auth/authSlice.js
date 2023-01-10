@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const authSlice = createSlice({
    name: 'auth',
    initialState: {
-      status: 'No authenticated',
+      status: 'Checking',
       uid: null,
       email: null,
       displayName: null,
@@ -24,11 +24,19 @@ export const authSlice = createSlice({
          state.uid= null;
          state.displayName= null;
          state.photoUrl= null;
-         state.errorMessage= payload.errorMessage;
+         state.errorMessage= payload?.errorMessage;
+      },
+      logoutInvalidPassword: (state) => {
+         state.status = 'No authenticated';
+         state.email= null;
+         state.uid= null;
+         state.displayName= null;
+         state.photoUrl= null;
+         state.errorMessage= "Email or password Invalid";
       },
       checkingCredentials: (state) => {
          state.status = 'checking';
       }
    }
 });
-export const { login, logout, checkingCredentials } = authSlice.actions;
+export const { login, logout,logoutInvalidPassword, checkingCredentials } = authSlice.actions;
