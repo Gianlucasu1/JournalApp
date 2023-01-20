@@ -22,7 +22,7 @@ export const Navbar = ({ drawerWidth }) => {
             position='fixed'
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
-                ml: { sm: `${drawerWidth}px` }
+                ml: { sm: `${drawerWidth}px`, minHeight: 80  }
             }}
         >
             <Toolbar>

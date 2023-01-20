@@ -6,41 +6,28 @@ import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material'
 import React, { useMemo } from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { checkingAuthentication, startLoginWithEmailPassword, startGoogleSignIn } from '../../store/auth/thunks'
-
+import {startLoginWithEmailPassword, startGoogleSignIn } from '../../store/auth/thunks'
 
 const formData = {
-  email:'@google.com',
+  email: '@google.com',
   password: ''
 }
 
-export const LoginPage = () => { 
-
-
+export const LoginPage = () => {
   const dispatch = useDispatch();
+  const { status, errorMessage } = useSelector(state => state.auth)
+  const { email, password, onInputChange } = useForm(formData);
+  const isAuthenticating = useMemo(() => status === 'checking', [status])
 
-  const { status, errorMessage } = useSelector( state => state.auth)
-
-  const {email, password, onInputChange} = useForm( formData );
-
-  const isAuthenticating= useMemo( () => status === 'checking', [status] )
-
-
-
-  const onSubmit = ( event ) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    dispatch( startLoginWithEmailPassword({email,password}) );
-
+    dispatch(startLoginWithEmailPassword({ email, password }));
   }
 
-  const onGoogleSignIn = ( event ) => {
+  const onGoogleSignIn = (event) => {
     event.preventDefault();
-    dispatch( startGoogleSignIn() );
+    dispatch(startGoogleSignIn());
   }
-
-  
-
- 
 
   return (
     <AuthLayout title='Login'>
@@ -56,7 +43,7 @@ export const LoginPage = () => {
               fullWidth
               name='email'
               value={email}
-              onChange={(event)=> onInputChange(event) }
+              onChange={(event) => onInputChange(event)}
             />
           </Grid>
 
@@ -68,18 +55,18 @@ export const LoginPage = () => {
               fullWidth
               name='password'
               value={password}
-              onChange={ (event) => onInputChange(event) }
+              onChange={(event) => onInputChange(event)}
             />
           </Grid>
 
-          <Grid 
-              item 
-              xs={12} 
-              display={!!errorMessage ? '' : 'none'}
-              sx={{ mt: 2 }}
-            >
-              <Alert severity='error'>{errorMessage}</Alert>
-            </Grid>
+          <Grid
+            item
+            xs={12}
+            display={!!errorMessage ? '' : 'none'}
+            sx={{ mt: 2 }}
+          >
+            <Alert severity='error'>{errorMessage}</Alert>
+          </Grid>
 
           <Grid
             alignItems="center"
@@ -88,13 +75,13 @@ export const LoginPage = () => {
             sx={{ mb: 2, mt: 2 }}
           >
             <Grid item xs={12} md={6}>
-              <Button type='submit' disabled={ isAuthenticating }  variant='contained' fullWidth>
+              <Button type='submit' disabled={isAuthenticating} variant='contained' fullWidth>
                 Login
               </Button>
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <Button disabled={ isAuthenticating } onClick={ onGoogleSignIn } variant='contained' fullWidth>
+              <Button disabled={isAuthenticating} onClick={onGoogleSignIn} variant='contained' fullWidth>
                 <Google />
                 <Typography sx={{ ml: 1 }} >Google</Typography>
               </Button>
