@@ -4,10 +4,13 @@ import React from 'react'
 import { NoteView, NothingSelectedView } from '../views'
 import { positions } from '@mui/system'
 import { AddOutlined, Note } from '@mui/icons-material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { startNewNote } from '../../store/journal'
 
 export const JournalPage = () => {
+
+  const { isSaving, active } = useSelector((state) => state.journal);
+  console.log(isSaving);
 
   const dispatch = useDispatch();
 
@@ -20,9 +23,11 @@ export const JournalPage = () => {
   return (
     <>
     <JournalLayout className='animate__animated animate__fadeIn animate__faster'>
-      <NothingSelectedView/>
+      {active == null ? <NothingSelectedView/> : <NoteView/> }
+      
       <IconButton
         onClick={onClickNewNote}
+        disabled={!!isSaving}
         size='large'
         sx={{
           color:'white',
