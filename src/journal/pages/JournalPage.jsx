@@ -9,8 +9,7 @@ import { startNewNote } from '../../store/journal'
 
 export const JournalPage = () => {
 
-  const { isSaving, active } = useSelector((state) => state.journal);
-  console.log(isSaving);
+  const { isSaving, active: activeNote } = useSelector((state) => state.journal);
 
   const dispatch = useDispatch();
 
@@ -18,12 +17,14 @@ export const JournalPage = () => {
     dispatch(startNewNote());
   }
 
+  console.log(activeNote);
+
   
 
   return (
     <>
     <JournalLayout className='animate__animated animate__fadeIn animate__faster'>
-      {active == null ? <NothingSelectedView/> : <NoteView/> }
+      {activeNote == null ? <NothingSelectedView/> : <NoteView/> }
       
       <IconButton
         onClick={onClickNewNote}

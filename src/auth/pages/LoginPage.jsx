@@ -9,7 +9,7 @@ import { useForm } from '../../hooks'
 import {startLoginWithEmailPassword, startGoogleSignIn } from '../../store/auth/thunks'
 
 const formData = {
-  email: '@google.com',
+  email: '',
   password: ''
 }
 
